@@ -25,6 +25,12 @@
 open build/EndlessWinter.app
 ```
 
+默认产出**通用二进制**（Apple Silicon + Intel 都能跑），最低支持 **macOS 11**。可用环境变量覆盖：
+
+```bash
+ARCHS=arm64 macOS_MIN=13.0 ./build.sh      # 只编本机架构 / 提高最低系统版本
+```
+
 长期使用可拖入应用程序目录：
 
 ```bash
@@ -33,6 +39,14 @@ cp -R build/EndlessWinter.app /Applications/
 
 **环境要求**：macOS + Xcode 命令行工具（clang）、Python 3、Node.js（仅无头测试需要）。
 Swift 工具链不参与构建，原生壳是纯 Objective-C + Cocoa/WebKit。
+
+## 📦 下载现成版本
+
+不想自己编译的话，到 [Releases](../../releases) 页面下载打包好的
+`EndlessWinter-vX.Y.Z-macos-universal.zip`，解压后把 `EndlessWinter.app` 拖进「应用程序」即可。
+
+> 首次打开请**右键点击 App → 打开**（App 使用 ad-hoc 签名、未经 Apple 公证，macOS 会拦截双击）。
+> 详见压缩包内的《使用说明.txt》。
 
 ## 🎮 玩法
 

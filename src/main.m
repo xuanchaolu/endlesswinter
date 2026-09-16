@@ -138,8 +138,8 @@ static BOOL LooksValidSave(NSString *text) {
 
     NSRect content = NSMakeRect(0, 0, 1360, 850);
     self.window = [[NSWindow alloc] initWithContentRect:content
-                                              styleMask:NSTitledWindowMask | NSClosableWindowMask |
-                                                        NSMiniaturizableWindowMask | NSResizableWindowMask
+                                              styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
+                                                        NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable
                                                 backing:NSBackingStoreBuffered
                                                   defer:NO];
     self.window.title = @"无尽冬日";

@@ -25,14 +25,21 @@ fi
 grep '结果' "$BUILD_DIR/test.log"
 
 # 1. 编译 Objective-C 原生壳
-echo "▶ [1/4] 编译原生壳 (clang + Cocoa/WebKit)..."
+# 目标架构：默认通用二进制（Apple Silicon + Intel 都能跑）；可用 ARCHS 覆盖，如 ARCHS=arm64
+ARCHS="${ARCHS:-arm64 x86_64}"
+ARCH_FLAGS=""
+for a in $ARCHS; do ARCH_FLAGS="$ARCH_FLAGS -arch $a"; done
+# 最低系统版本：显式指定，避免 SDK 默认值把兼容性抬高到最新系统
+MACOS_MIN="${MACOS_MIN:-11.0}"
+echo "▶ [1/4] 编译原生壳 (clang + Cocoa/WebKit)，架构: $ARCHS，最低系统: macOS $MACOS_MIN"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-clang -O2 -fobjc-arc \
+clang -O2 -fobjc-arc $ARCH_FLAGS "-mmacosx-version-min=$MACOS_MIN" \
     "-fmodules-cache-path=$CLANG_CACHE" \
     src/main.m \
     -o "$APP/Contents/MacOS/$APP_NAME" \
     -framework Cocoa -framework WebKit
+echo "   已产出架构: $(lipo -info "$APP/Contents/MacOS/$APP_NAME" | sed 's/.*: //')"
 
 # 2. 复制游戏资源
 echo "▶ [2/4] 打包游戏资源（3D 引擎 + 游戏逻辑）..."
