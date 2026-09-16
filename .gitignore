@@ -1,0 +1,32 @@
+# ---------- 构建产物 ----------
+build/
+*.app/
+*.icns
+
+# ---------- clang 模块缓存 / 编译中间件 ----------
+build/mcache*
+build/omcache/
+*.o
+*.dSYM/
+
+# ---------- 测试与日志 ----------
+*.log
+test.log
+
+# ---------- 个人存档与备份（绝不入库） ----------
+save.json
+save.json.prev
+save-backup-*.json
+*.save
+
+# ---------- macOS / 编辑器 ----------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Rhistory
+.Rproj.user/
+*.swp
+*~
+.vscode/
+.idea/

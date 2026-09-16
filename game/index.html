@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无尽冬日</title>
+<link rel="stylesheet" href="style.css">
+<script src="js/three.min.js"></script>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div id="frost"></div>
+
+<!-- 顶部栏 -->
+<header id="topbar">
+  <div id="brand">❄ <b>无尽冬日</b> <span class="ver" id="verTag"></span></div>
+  <div class="tb-group" id="dayBox">
+    <span class="tb-day">第 <b id="dayNum">1</b> 天</span>
+    <span class="tb-phase" id="phaseLabel">清晨</span>
+  </div>
+  <div class="tb-group temps">
+    <div class="temp out"><i>🌡️ 室外</i><b id="outTemp">-5°</b></div>
+    <div class="temp in"><i>🔥 室内</i><b id="inTemp">8°</b></div>
+    <div class="temp fc"><i>🌙 今夜</i><b id="fcTemp">--</b></div>
+    <span id="weatherBadge" class="hidden">🌀 暴风雪</span>
+  </div>
+  <div class="tb-group speeds">
+    <button class="sbtn" id="btnPause" title="暂停（空格）">⏸</button>
+    <button class="sbtn active" id="btnPlay" title="正常速度（1）">▶</button>
+    <button class="sbtn" id="btnFast" title="三倍速度（2）">⏩</button>
+    <span id="pauseBadge" class="hidden">⏸ 已暂停</span>
+  </div>
+  <div class="tb-group sys">
+    <button class="sbtn" id="btnPolicy" title="政策与设置">⚙️</button>
+    <button class="sbtn" id="btnHelp" title="玩法说明">❓</button>
+    <button class="sbtn" id="btnMute" title="音效开关">🔊</button>
+  </div>
+</header>
+
+<!-- 资源栏 -->
+<div id="resbar">
+  <div class="res" id="resBoxWood"><span class="ri">🪵</span><span class="rv" id="resWood">0</span><span class="rc" id="capWood"></span><span class="rr" id="rateWood"></span></div>
+  <div class="res" id="resBoxCoal"><span class="ri">🪨</span><span class="rv" id="resCoal">0</span><span class="rc" id="capCoal"></span><span class="rr" id="rateCoal"></span></div>
+  <div class="res" id="resBoxFood"><span class="ri">🍖</span><span class="rv" id="resFood">0</span><span class="rc" id="capFood"></span><span class="rr" id="rateFood"></span></div>
+  <div class="res" id="resBoxIron"><span class="ri">🔩</span><span class="rv" id="resIron">0</span><span class="rc" id="capIron"></span><span class="rr" id="rateIron"></span></div>
+  <div class="res" id="resBoxStone"><span class="ri">🧱</span><span class="rv" id="resStone">0</span><span class="rc" id="capStone"></span><span class="rr" id="rateStone"></span></div>
+  <div class="sep"></div>
+  <div class="res pop" id="popChip" title="人口 / 居住上限">👥 <b id="popVal">6</b><span class="rc" id="popCapTxt">/6</span></div>
+  <div class="res sick hidden" id="sickChip" title="患病人数">🤒 <b id="sickVal">0</b></div>
+</div>
+
+<!-- 底部建筑坞 -->
+<div id="dock"><div id="dockItems"></div><div id="dockHint">拖动旋转视角 · 滚轮缩放 · WASD 平移 · 点击建筑查看详情</div></div>
+
+<!-- 右侧面板 -->
+<aside id="sidepanel">
+  <nav id="tabs">
+    <button class="tab active" data-tab="detail">详情</button>
+    <button class="tab" data-tab="log">日志<span id="logDot" class="dot hidden"></span></button>
+    <button class="tab" data-tab="research">研究<span id="researchDot" class="dot hidden"></span></button>
+  </nav>
+  <section id="tab-detail" class="pane"></section>
+  <section id="tab-log" class="pane hidden"><ul id="logList"></ul></section>
+  <section id="tab-research" class="pane hidden">
+    <div id="researchNow"></div>
+    <div id="techList"></div>
+  </section>
+</aside>
+
+<div id="guideCard" class="hidden">
+  <div class="gc-head">🎯 <span id="gcStep">目标 1/8</span><button id="gcSkip" title="跳过引导">×</button></div>
+  <div id="gcText"></div>
+</div>
+
+<div id="toasts"></div>
+<div id="modalRoot" class="hidden"></div>
+
+<script src="js/world3d.js"></script>
+<script src="js/bgm.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
